@@ -1,0 +1,20 @@
+body {
+	background: black;
+	margin: 0;
+}
+
+* {
+	font-family: 'VT323', monospace;
+	color: yellow;
+	font-size: 10vh;
+}
+
+table {
+	width: 90%;
+	height: 90%;
+	margin: 0 5%;
+}
+
+td {
+	padding-right: 2%;
+}
