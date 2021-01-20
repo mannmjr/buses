@@ -1,8 +1,8 @@
-#Description
+# Description
 
 A simple app to display 'departures board' style signage for a selected UK bus stop.
 
-#Getting started
+# Getting started
 
 - Sign up for an account at https://developer.transportapi.com/ and create a new application.
 > N.B. The limit is 1000 requests per day per Application ID, but (until they notice?) you can get round this by creating several 'Applications'.
@@ -11,7 +11,7 @@ A simple app to display 'departures board' style signage for a selected UK bus s
 
 - Browsing to `index.html` should display the departures board.
 
-#Selecting a bus stop
+# Selecting a bus stop
 
 TODO: Add a way for the user to select a bus stop from a map.
 
