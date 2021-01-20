@@ -1,15 +1,15 @@
 <?php
 
-require "classes/TransportAPI.class.php";
+require dirname(__FILE__) . "/classes/TransportAPI.class.php";
 
-if (file_exists("credentials.mm.php")) {
-	require "credentials.mm.php";
+if (file_exists(dirname(__FILE__) . "/credentials.mm.php")) {
+	require dirname(__FILE__) . "/credentials.mm.php";
 } else {
-	require "credentials.php";
+	require dirname(__FILE__) . "/credentials.php";
 }
 
 // Check cached credIndex is less than the number of stored credentials
-$credIndex = (int) file_get_contents("data/credIndex.txt");
+$credIndex = (int) file_get_contents(dirname(__FILE__) . "/data/credIndex.txt");
 if ($credIndex >= count($credentials)) {
-	file_put_contents("data/credIndex.txt", 0);
+	file_put_contents(dirname(__FILE__) . "/data/credIndex.txt", 0);
 }

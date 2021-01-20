@@ -7,8 +7,7 @@ class TransportAPI {
 	
 	public function __construct(array $credentials) {
 		$this->credentials = $credentials;
-		$this->credIndex = (int) trim(file_get_contents("data/credIndex.txt"));
-		$this->selectedStop = trim(file_get_contents("data/selectedStop.txt"));
+		$this->credIndex = (int) trim(file_get_contents(dirname(__FILE__) . "/../data/credIndex.txt"));
 	}
 	
 	/**
@@ -21,7 +20,7 @@ class TransportAPI {
 		} else {
 			$this->credIndex++;
 		}
-		file_put_contents("data/credIndex.txt", $this->credIndex);
+		file_put_contents(dirname(__FILE__) . "/../data/credIndex.txt", $this->credIndex);
 	}
 	
 	/**
@@ -87,13 +86,41 @@ class TransportAPI {
 	}
 	
 	/**
+	 *  @brief Get an array of bus stops inside a bounding box
+	 *  
+	 *  @param $min_lat Smallestlatitude
+	 *  @param $min_lon Smallest longitude
+	 *  @param $max_lat Largest latitude
+	 *  @param $max_lon Largest longitude
+	 *  @return Array of bus stops
+	 */
+	public function getBoundingBoxStops(array $lats, array $lons) : array {
+		$min_lat = min($lats);
+		$max_lat = max($lats);
+		$min_lon = min($lons);
+		$max_lon = max($lons);
+		
+		$resource = "/uk/places.json";
+		$query = [
+			"min_lat" => $min_lat,
+			"min_lon" => $min_lon,
+			"max_lat" => $max_lat,
+			"max_lon" => $max_lon,
+			"type" => "bus_stop",
+		];
+		return $this->request($resource, $query)->member;
+	}
+	
+	/**
 	 *  @brief Get up-coming departures from selected bus stop
+	 *  
+	 *  @param $atcocode ATCO code of a bus stop
 	 *  
 	 *  @return Array of departures, soonest first
 	 */
-	public function getDepartures() : array {
+	public function getDepartures(string $atcocode) : array {
 		// Query API
-		$resource = "/uk/bus/stop/{$this->selectedStop}/live.json";
+		$resource = "/uk/bus/stop/$atcocode/live.json";
 		$departures = $this->request($resource)->departures;
 		
 		// Pick out relevant information
