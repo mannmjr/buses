@@ -6,7 +6,7 @@ $(function() {
 	
 	// Refresh on load and every 2 mins
 	refresh();
-	window.setInterval(refresh, 1000 * 120);
+	window.setInterval(refresh, 1000 * 60);
 	
 	// Clicking anywhere on the page takes you to map.html
 	$(document).click(function() {
@@ -15,18 +15,17 @@ $(function() {
 });
 
 function refresh() {
-	$("table").html("");
+	$("#container").html("");
 	$.get("ajax/buses.php?atcocode=" + localStorage.getItem('atcocode'), function(data) {
-		// console.log(data);
 		buses = JSON.parse(data);
 		for (i in buses) {
 			bus = buses[i];
 			console.log(buses[i]);
-			row = $("<tr></tr>");
-			row.append("<td>" + bus.line + "</td>");
-			row.append("<td>" + bus.direction + "</td>");
-			row.append("<td>" + bus.friendly_time + "</td>");
-			$("table").append(row);
+			row = $('<div class="row"></div>');
+			row.append('<div class="cell line">' + bus.line + '</div>');
+			row.append('<div class="cell direction">' + bus.direction + '</div>');
+			row.append('<div class="cell time">' + bus.friendly_time + '</div');
+			$("#container").append(row);
 		}
 	});
 }

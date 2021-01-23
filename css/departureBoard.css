@@ -9,12 +9,34 @@ body {
 	font-size: 10vh;
 }
 
-table {
+#container {
 	width: 90%;
 	height: 90%;
 	margin: 0 5%;
 }
 
-td {
-	padding-right: 2%;
+.cell {
+	float: left;
+}
+
+.cell.line {
+	width: 10%;
+}
+
+.cell.direction {
+	width: 65%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	padding-right: 5%;
+}
+
+.cell.time {
+	width: 20%;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
 }
